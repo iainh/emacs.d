@@ -2,3 +2,5 @@
 !.gitignore
 !init.el
 !custom.el
+!core/
+!core/*.el
