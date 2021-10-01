@@ -1,9 +1,10 @@
 ;; UI Customization
+(setq inhibit-startup-screen t)
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (blink-cursor-mode -1)
 
-(setq inhibit-startup-screen t)
 
 ;; nice scrolling
 (setq scroll-margin 0
@@ -39,7 +40,7 @@
 (global-hl-line-mode +1)
 
 ;; Theme
-(load-theme 'nano t)
+(load-theme 'deeper-blue t)
 
 ;; show available keybindings after you start typing
 (require 'which-key)
