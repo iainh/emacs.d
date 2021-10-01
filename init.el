@@ -20,5 +20,3 @@
 ;; linux specific settings
 (when (eq system-type 'gnu/linux)
   (require 'linux))
-
-(require 'compile)
