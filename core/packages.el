@@ -26,12 +26,22 @@
    :url "https://github.com/quelpa/quelpa-use-package.git"))
 (require 'quelpa-use-package)
 
-(use-package nano-theme
-  :ensure nil
-  :defer t
-  :quelpa (nano-theme
-           :fetcher github
-           :repo "rougier/nano-theme"))
+;; Auto-compile
+(use-package auto-compile
+  :ensure t
+  :defer t)
+
+;; magit for Git 
+(use-package magit
+  :ensure t
+  :defer t)
+
+;; (use-package nano-theme
+;;   :ensure nil
+;;   :defer t
+;;   :quelpa (nano-theme
+;;            :fetcher github
+;;            :repo "rougier/nano-theme"))
 
 ;; minor mode to display the key bindings following your currently entered
 ;; incomplete command in a popup.
