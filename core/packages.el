@@ -1,34 +1,31 @@
-;; Packages
+;; Install packages using straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-;; Initialize package sources
-(require 'package)
+;; Install use-package and configure to always use straight.el
+(straight-use-package 'use-package)
+(use-package straight
+	     :custom (straight-use-package-by-default t))
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			 ("org" . "https://orgmode.org/packages/")
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
-
-(package-initialize)
-(unless package-archive-contents
-   (package-refresh-contents))
-
-
-(defun ensure-package-installed (&rest packages)
-  "Assure every package is installed, ask for installation if it’s not.
-   Return a list of installed packages or nil for every skipped package."
-  (mapcar
-   (lambda (package)
-     (unless (package-installed-p package)
-       (package-install package)))
-     packages)
-)
-
-(ensure-package-installed
- 'markdown-mode
- 'smartparens
- 'which-key
- 'exec-path-from-shell
- 'magit
-)
+(use-package exec-path-from-shell)
+(use-package smartparens)
+(use-package markdown-mode)
+(use-package magit)
+(use-package restclient)
+(use-package which-key)
+(use-package spacemacs-theme
+  :defer t
+  :init (load-theme 'spacemacs-light t))
 
 (provide 'packages)
 ;;; end of packages

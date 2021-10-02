@@ -5,7 +5,6 @@
 (menu-bar-mode -1)
 (blink-cursor-mode -1)
 
-
 ;; nice scrolling
 (setq scroll-margin 0
       scroll-conservatively 100000
@@ -38,9 +37,6 @@
 
 ;; highlight the current line
 (global-hl-line-mode +1)
-
-;; Theme
-(load-theme 'deeper-blue t)
 
 ;; show available keybindings after you start typing
 (require 'which-key)
