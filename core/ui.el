@@ -18,7 +18,7 @@
 ;; more useful frame title, that show either a file or a
 ;; buffer name (if the buffer isn't visiting a file)
 (setq frame-title-format
-      '("" invocation-name " - " (:eval (if (buffer-file-name)
+      '("" "Emacs " emacs-version " " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
 
@@ -27,11 +27,10 @@
     (global-display-line-numbers-mode)
   (global-nlinum-mode t))
 
-
-;; font
-(set-face-attribute 'default nil :font "IBM Plex Mono" :height 150)
-(set-face-attribute 'mode-line nil :height 140)
-(set-face-attribute 'mode-line-inactive nil :height 140)
+;; Font configuration
+(set-face-attribute 'default nil :font "Cascadia Code" :height 150)
+(set-face-attribute 'mode-line nil :height 130) 
+(set-face-attribute 'mode-line-inactive nil :height 130)
 
 (setq display-fill-column-indicator t)
 
