@@ -20,3 +20,7 @@
 ;; linux specific settings
 (when (eq system-type 'gnu/linux)
   (require 'linux))
+
+;; Windows specific settings
+(when (eq system-type 'windows-nt)
+  (require 'windows))
