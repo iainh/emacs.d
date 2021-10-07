@@ -23,10 +23,13 @@
 (use-package magit
   :config
   (global-set-key (kbd "C-x g") 'magit-status))
-(use-package restclient)
+;;(use-package restclient)	       
 (use-package which-key
   :diminish)
+;;(use-package treemacs)
 (use-package lsp-mode)
+;;(use-package lsp-treemacs
+;;  :init (lsp-treemacs-sync-mode 1))
 (use-package yasnippet
   :ensure
   :config
@@ -34,13 +37,12 @@
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (add-hook 'text-mode-hook 'yas-minor-mode))
 (use-package yasnippet-snippets)
-(use-package company)
-(use-package company-lsp)
+
 (use-package rustic
-  :config (setq rustic-lsp-server 'rust-analyzer)
-  ;; little less flash
+  :config
+  (setq rustic-lsp-server 'rust-analyzer)
   (setq lsp-eldoc-hook nil)
-  (setq lsp-enable-symbol-highlight nil)
+  (setq lsp-enable-symbol-highlight t)
   (setq lsp-signature-auto-activate nil)
 
   ;; comment to disable rustfmt on save
@@ -55,47 +57,72 @@
   (when buffer-file-name
     (setq-local buffer-save-without-query t)))
 
+(use-package projectile)
+(use-package ivy
+  :init (ivy-mode t))
 
-(use-package helm
- :diminish
- :init (helm-mode t)
- :bind (("M-x"     . helm-M-x)
-        ("C-x C-f" . helm-find-files)
-        ("C-x b"   . helm-mini)     ;; See buffers & recent files; more useful.
-        ("C-x r b" . helm-filtered-bookmarks)
-        ("C-x C-r" . helm-recentf)  ;; Search for recently edited files
-        ("C-c i"   . helm-imenu)
-        ("C-h a"   . helm-apropos)
-        ;; Look at what was cut recently & paste it in.
-        ("M-y" . helm-show-kill-ring)
-
-        :map helm-map
-        ;; We can list ‘actions’ on the currently selected item by C-z.
-        ("C-z" . helm-select-action)
-        ;; Let's keep tab-completetion anyhow.
-        ("TAB"   . helm-execute-persistent-action)
-        ("<tab>" . helm-execute-persistent-action)))
-(use-package rg
-  :config
-  (global-set-key (kbd "M-s g") 'rg)
-  (global-set-key (kbd "M-s d") 'rg-dwim))
-
-(use-package helm-rg)
+(use-package company
+  :demand t
+  :hook ((prog-mode-hook . global-company-mode)
+         (text-mode-hook . global-company-mode)
+         (org-mode-hook . global-company-mode)
+         (markdown-mode-hook . global-company-mode))
+  :init
+   (setq company-minimum-prefix-length 3
+        company-require-match 0
+        company-selection-wrap-around t
+        company-tooltip-limit 10
+        company-show-numbers t
+        company-idle-delay 0.05)
+  :bind* (("M-/"	. company-complete)
+          )
+  ;;        ("C-j f"	. company-files)
+  ;;        ("C-j s"	. company-ispell)
+  ;;        ("C-j e"	. company-elisp)
+  ;;        ("C-j y"	. company-yasnippet)
+  ;;        ("C-j c"	. company-dabbrev-code)
+  ;;        ("C-j d"	. company-dabbrev))
+  ;; :bind (:map prog-mode-map
+  ;;      ("C-d" . company-dabbrev-code))
+  ;; :bind (:map text-mode-map
+  ;;      ("C-d" . company-dabbrev))
+  :bind (:map company-active-map
+              ([return] . company-complete-selection))
+  ;;      ("C-n"    . company-select-next)
+  ;;      ("C-p"    . company-select-previous)
+        ([tab]    . yas-expand)
+        ("TAB"    . yas-expand)
+  ;;      ("C-w"    . backward-kill-word)
+        ("C-c"    . company-abort)
+	;;("C-c"    . company-search-abort))
+	:diminish (company-mode . " ς")
+	:config
+	(setq company-backends
+	      '((;; generic backends
+       		 company-files    ; files & directories
+		 company-keywords ; keywords
+		 company-elisp    ;emacs-lisp code
+		 ;;company-shell    ; shell
+		 company-capf     ; completion at point
+;;		 company-lsp      ; LSP
+		 )))
+	 (global-company-mode))
+ 
 (use-package flycheck)
-(use-package lsp-ui
-  :ensure
-  :commands lsp-ui-mode
-  :custom
-  (lsp-ui-peek-always-show t)
-  (lsp-ui-sideline-show-hover t)
-  (lsp-ui-doc-enable nil))
-(use-package helm-lsp
-  :config
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+;; (use-package lsp-ui
+;;   :ensure
+;;   :commands lsp-ui-mode
+;;   :custom
+;;   (lsp-ui-peek-always-show t)
+;;   (lsp-ui-sideline-show-hover t)
+;;   (lsp-ui-doc-enable nil))
 
 (use-package spacemacs-theme
   :defer t
   :init (load-theme 'spacemacs-light t))
+;; (use-package doom-themes
+;;   :defer t
+;;   :init (load-theme 'doom-one t))
 (use-package diminish
   :config (diminish 'eldoc-mode))
 (use-package doom-modeline
