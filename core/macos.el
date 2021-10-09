@@ -8,6 +8,10 @@
 (use-package ns-auto-titlebar
   :init (ns-auto-titlebar-mode))
 
+;; macOS ls doesn't support '-X' or arguments like '--sort' so use coreutils ls
+;; from macPorts
+(when (equal system-type 'darwin)
+  (setq insert-directory-program "/usr/local/opt/coreutils/libexec/gnubin/ls"))
 
 (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
 (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
