@@ -119,10 +119,12 @@
 
 (use-package spacemacs-theme
   :defer t
-  :init (load-theme 'spacemacs-light t))
-;; (use-package doom-themes
-;;   :defer t
-;;   :init (load-theme 'doom-one t))
+;;  :init (load-theme 'spacemacs-light t)
+)
+(use-package doom-themes
+  :defer t
+  :init (load-theme 'doom-one-light t)
+  )
 (use-package diminish
   :config (diminish 'eldoc-mode))
 (use-package doom-modeline
