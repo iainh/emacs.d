@@ -22,6 +22,10 @@
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
 
+;; cursor: Use a red bar cursor rather than the standard block
+(setq-default cursor-type 'bar)
+(set-cursor-color "#ff0000")
+
 ;; show line numbers at the beginning of each line
 (if (fboundp 'global-display-line-numbers-mode)
     (global-display-line-numbers-mode)
@@ -29,8 +33,9 @@
 
 ;; Font configuration
 (set-face-attribute 'default nil :font "Cascadia Code" :height 150)
-(set-face-attribute 'mode-line nil :height 130) 
+(set-face-attribute 'mode-line nil :height 130)
 (set-face-attribute 'mode-line-inactive nil :height 130)
+
 
 (setq display-fill-column-indicator t)
 
