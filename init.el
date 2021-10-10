@@ -6,8 +6,6 @@
 ;; add directories to Emacs' `load-path`
 (add-to-list 'load-path core-dir)
 
-(message "Loading core configuration...")
-
 ;; load configuration from core/
 (require 'packages)
 (require 'ui)
