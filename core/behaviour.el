@@ -3,6 +3,11 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
+;; size the frame so something a little more usable to start
+(when window-system
+;;  (set-frame-position (selected-frame) 500 100)
+  (set-frame-size (selected-frame) 91 43))
+
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
