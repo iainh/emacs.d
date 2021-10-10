@@ -109,13 +109,18 @@
  
   ;; Load the theme files before enabling a theme
   (modus-themes-load-themes)
-  (load-theme 'modus-vivendi t)
+  ;;(load-theme 'modus-vivendi t)
+  (load-theme 'modus-operandi t)
   ;; Swap between light and dark
   :bind ("<f5>" . modus-themes-toggle)
   )
 
 (use-package doom-modeline
   :config (doom-modeline-mode)
+  ;; Reduce the scale factor for icons from 1.2 to 1.1 to fix the text
+  ;; on the right edge being cut off when the scrollbar is disabled.
+  ;; https://github.com/hlissner/doom-emacs/issues/2967
+  (setq all-the-icons-scale-factor 1.1)
   (setq doom-modeline-height 1)
   (setq doom-modeline-icon 'nil))
 
