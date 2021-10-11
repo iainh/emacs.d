@@ -31,13 +31,11 @@
     (global-display-line-numbers-mode)
   (global-nlinum-mode t))
 
-;; Font configuration
-(set-face-attribute 'default nil :font "Cascadia Code" :height 150)
-(set-face-attribute 'mode-line nil :height 130)
-(set-face-attribute 'mode-line-inactive nil :height 130)
-
-
-(setq display-fill-column-indicator t)
+(when window-system
+  ;; Font configuration
+  (set-face-attribute 'default nil :font "Inconsolata" :height 180)
+  (set-face-attribute 'mode-line nil :height 130)
+  (set-face-attribute 'mode-line-inactive nil :height 130))
 
 ;; highlight the current line
 (global-hl-line-mode +1)

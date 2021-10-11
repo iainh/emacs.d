@@ -1,5 +1,6 @@
 ;; Microsoft Windows
 
-(setq visible-bell 1)
+(when window-system
+  (setq visible-bell 1))
 
 (provide 'windows)
