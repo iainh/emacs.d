@@ -8,7 +8,6 @@
   ;; macOS specific UI configuration
   (use-package ns-auto-titlebar
     :init (ns-auto-titlebar-mode))
-
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
   (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
 
