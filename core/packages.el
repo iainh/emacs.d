@@ -81,32 +81,23 @@
 (use-package company
   :demand t
   :diminish company-mode
-  :bind (("M-/"  .  company-complete)
-	 :map company-active-map
-	 ("C-p"  .  company-select-previous)
-	 ("C-n"  .  company-select-next)
-	 ("Tab"  .  company-complete-common-or-cycle)
-	 )
-  :init (add-hook 'after-init-hook 'global-company-mode)
-  :config
-  ;; aligns annotation to the right hand side
-  (setq company-tooltip-align-annotations t)
+  :bind (:map company-active-map
+	      ("<tab>" . nil)
+	      ("TAB"   . company-complete-selection))
+  :config (setq
+	   company-idle-delay 0.05
+	   company-minimum-prefix-length 1
+	   company-selection-wrap-around t
+	   ;; backends
+	   company-backends '((
+			       company-capf/
+			       company-semantic
+			       company-files
+			       company-keywords
+			       )))
+   :init 
+   (add-hook 'after-init-hook 'global-company-mode))
 
-  (setq company-idle-delay 0.05
-	company-minimum-prefix-length 2
-	company-selection t
-	company-require-match nil)
-  (setq company-backends
- 	'((
-	   company-capf     ; completion at point
-	   company-files    ; files & directories
- 	   company-keywords ; keywords
-	   company-elisp    ; emacs-lisp code
-	   )))
-   :hook ((prog-mode-hook . global-company-mode)
- 	 (org-mode-hook . glabal-company-mode)
- 	 (markdown-mode-hook . global-company-mode))
- )
 (use-package flycheck)
 
 ;;(use-package spacemacs-theme
