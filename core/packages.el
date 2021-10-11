@@ -69,9 +69,9 @@
 (use-package which-key
   :diminish)
 
-(use-package lsp-mode)
+(use-package lsp-mode
+  :defer t)
 (use-package yasnippet
-  :ensure t
   :config
   (yas-reload-all)
   (add-hook 'prog-mode-hook 'yas-minor-mode)
@@ -106,7 +106,6 @@
   (ivy-re-builders-alist '((t . ivy--regex-plus))))
 
 (use-package company
-  :ensure t
   :diminish company-mode
   :bind (:map company-active-map
 	      ("<tab>" . nil)
@@ -119,7 +118,7 @@
 	   company-backends '((
 			       company-capf
 			       company-semantic
-			       company-files
+			       ;;company-files
 			       company-keywords
 			       )))
    :init 
@@ -155,7 +154,6 @@
   :defer t)
 
 (use-package modus-themes
-  :ensure t
   :init
   ;; Add all your customizations prior to loading the themes
   (setq modus-themes-italic-constructs t
