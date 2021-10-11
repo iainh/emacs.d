@@ -21,6 +21,13 @@
 (use-package crux
   :defer t)
 
+(use-package dired
+  :straight (:type built-in)
+  ;; :hook ((dired-mode . hl-line-mode)
+  ;; 	 (dired-mode . dired-details-mode))
+  :custom
+  (dired-listing-switches "-aBhl --group-directories-first"))
+
 (use-package exec-path-from-shell
   :defer t)
 
