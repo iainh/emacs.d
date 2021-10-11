@@ -27,10 +27,5 @@
 ;; show trailing whitespace
 (setq show-trailing-whitespace t)
 
-;; smart parentheses
-(require 'smartparens-config)
-(smartparens-global-mode t)
-
-
 (provide 'behaviour)
 

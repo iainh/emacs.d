@@ -21,7 +21,23 @@
 (use-package crux)
 
 (use-package exec-path-from-shell)
-(use-package smartparens)
+(use-package smartparens
+  :diminish smartparens-mode
+  :init (smartparens-global-mode)
+  :config
+  (require 'smartparens-config)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'smartparens-mode)
+  ;; Enter in parens should create a new empty line that is properly indented
+  (defun indent-between-pair (&rest _ignored)
+    (newline)
+    (indent-according-to-mode)
+    (forward-line -1)
+    (indent-according-to-mode))
+
+  (sp-local-pair 'prog-mode "{" nil :post-handlers '((indent-between-pair "RET")))
+  (sp-local-pair 'prog-mode "[" nil :post-handlers '((indent-between-pair "RET")))
+  (sp-local-pair 'prog-mode "(" nil :post-handlers '((indent-between-pair "RET"))))
+
 (use-package markdown-mode)
 (use-package magit
   :config
