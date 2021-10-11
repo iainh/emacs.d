@@ -15,7 +15,8 @@
 ;; macOS ls doesn't support '-X' or arguments like '--sort' so use coreutils ls
 ;; from macPorts
 (when (equal system-type 'darwin)
-  (setq insert-directory-program "/opt/local/bin/gls"))
+  (setq dired-use-ls-dired t
+	insert-directory-program "/opt/local/bin/gls"))
 
 (provide 'macos)
 ;;; end of macos.el
