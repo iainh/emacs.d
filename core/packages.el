@@ -18,9 +18,12 @@
 (use-package straight
 	     :custom (straight-use-package-by-default t))
 
-(use-package crux)
+(use-package crux
+  :defer t)
 
-(use-package exec-path-from-shell)
+(use-package exec-path-from-shell
+  :defer t)
+
 (use-package smartparens
   :diminish smartparens-mode
   :init (smartparens-global-mode)
@@ -39,16 +42,29 @@
   (sp-local-pair 'prog-mode "(" nil :post-handlers '((indent-between-pair "RET"))))
 
 (use-package markdown-mode)
+
+;; Show diff highlight in the gutter
+;; (use-package diff-hl
+;;   :defer 1
+;;   :hook
+;;   (dired-mode . diff-hl-dired-mode-unless-remote)
+;;   :config
+;;   (global-diff-hl-mode 1))
+
 (use-package magit
   :config
   (global-set-key (kbd "C-x g") 'magit-status))
+  ;; :hook
+  ;; (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
+  ;; (magit-post-refresh-hook . diff-hl-magit-post-refresh))
+
 ;;(use-package restclient)	       
 (use-package which-key
   :diminish)
 
 (use-package lsp-mode)
 (use-package yasnippet
-  :ensure
+  :ensure t
   :config
   (yas-reload-all)
   (add-hook 'prog-mode-hook 'yas-minor-mode)
@@ -76,10 +92,14 @@
 
 ;;(use-package projectile)
 (use-package ivy
-  :init (ivy-mode t))
+  :init (ivy-mode t)
+  :custom
+  (ivy-use-virtual-buffers t)
+  (ivy-enable-recursive-minibuffers t)
+  (ivy-re-builders-alist '((t . ivy--regex-plus))))
 
 (use-package company
-  :demand t
+  :ensure t
   :diminish company-mode
   :bind (:map company-active-map
 	      ("<tab>" . nil)
@@ -90,7 +110,7 @@
 	   company-selection-wrap-around t
 	   ;; backends
 	   company-backends '((
-			       company-capf/
+			       company-capf
 			       company-semantic
 			       company-files
 			       company-keywords
@@ -98,15 +118,35 @@
    :init 
    (add-hook 'after-init-hook 'global-company-mode))
 
+(use-package company-posframe
+  :defer t
+  :after company
+  :config
+  (company-posframe-mode))
+
+(use-package counsel
+  :defer t
+  :config
+  (counsel-mode))
+
+(use-package flx
+  :defer t
+  :after ivy counsel)
+
+(use-package ivy-posframe
+  :defer 1
+  :after ivy
+  :config
+  (setq ivy-posframe-display-functions-alist
+        '((t . ivy-posframe-display)))
+  (ivy-posframe-mode))
 (use-package flycheck)
 
-;;(use-package spacemacs-theme
-;;  :defer t)
-;;(use-package doom-themes
-  ;; :defer t
-  ;; :init (load-theme 'doom-one-light t))	
-(use-package diminish
-  :config (diminish 'eldoc-mode))
+(use-package spacemacs-theme
+  :defer t)
+(use-package doom-themes
+  :defer t)
+
 (use-package modus-themes
   :ensure t
   :init
@@ -119,8 +159,7 @@
   ;;(load-theme 'modus-vivendi t)
   (load-theme 'modus-operandi t)
   ;; Swap between light and dark
-  :bind ("<f5>" . modus-themes-toggle)
-  )
+  :bind ("<f5>" . modus-themes-toggle))
 
 (use-package doom-modeline
   :config (doom-modeline-mode)
