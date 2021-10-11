@@ -40,6 +40,9 @@
 ;; highlight the current line
 (global-hl-line-mode +1)
 
+;; increase line spacing for readability
+(setq line-spacing 2)
+
 ;; show available keybindings after you start typing
 (require 'which-key)
 (which-key-mode +1)
