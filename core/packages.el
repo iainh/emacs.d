@@ -65,9 +65,10 @@
   ;; (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
   ;; (magit-post-refresh-hook . diff-hl-magit-post-refresh))
 
-;;(use-package restclient)	       
 (use-package which-key
-  :diminish)
+  :defer t
+  :diminish
+  :config (which-key-mode))
 
 (use-package lsp-mode
   :defer t)

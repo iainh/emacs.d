@@ -48,9 +48,5 @@
 (add-hook 'text-mode-hook 'set-bigger-spacing)
 (add-hook 'prog-mode-hook 'set-bigger-spacing)
 
-;; show available keybindings after you start typing
-(require 'which-key)
-(which-key-mode +1)
-
 (provide 'ui)
 ;;; end of ui.el
