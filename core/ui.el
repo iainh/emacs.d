@@ -35,7 +35,10 @@
 
 (when window-system
   ;; Font configuration
-  (set-face-attribute 'default nil :font "Inconsolata" :height 180)
+
+  (if (member "Droid Sans Mono" (font-family-list))
+      (set-face-attribute 'default nil :font "Droid Sans Mono" :height 120)
+    (set-face-attribute 'default nil :font "monospace" :height 140))
 
   ;; A hack to vertically centre the text on a line until emacs supports the true centering
   ;; Patch by Jesse Medeiros started 2019:
