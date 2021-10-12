@@ -33,7 +33,6 @@
   :init (smartparens-global-mode)
   :config
   (require 'smartparens-config)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'smartparens-mode)
   ;; Enter in parens should create a new empty line that is properly indented
   (defun indent-between-pair (&rest _ignored)
     (newline)
@@ -43,9 +42,11 @@
 
   (sp-local-pair 'prog-mode "{" nil :post-handlers '((indent-between-pair "RET")))
   (sp-local-pair 'prog-mode "[" nil :post-handlers '((indent-between-pair "RET")))
-  (sp-local-pair 'prog-mode "(" nil :post-handlers '((indent-between-pair "RET"))))
+  (sp-local-pair 'prog-mode "(" nil :post-handlers '((indent-between-pair "RET")))
+  :hook (eval-expression-minibuffer-setup . smartparens-mode))
 
-(use-package markdown-mode)
+(use-package markdown-mode
+  :defer t)
 
 ;; Show diff highlight in the gutter
 ;; (use-package diff-hl
@@ -59,45 +60,43 @@
   :config
   (global-set-key (kbd "C-x g") 'magit-status))
   ;; :hook
-  ;; (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
-  ;; (magit-post-refresh-hook . diff-hl-magit-post-refresh))
+  ;; (magit-pre-refresh . diff-hl-magit-pre-refresh)
+  ;; (magit-post-refresh . diff-hl-magit-post-refresh))
 
 (use-package which-key
-  :defer t
   :diminish
   :config (which-key-mode))
 
 (use-package lsp-mode
   :defer t)
 (use-package yasnippet
-  :config
-  (yas-reload-all)
-  (add-hook 'prog-mode-hook 'yas-minor-mode)
-  (add-hook 'text-mode-hook 'yas-minor-mode))
+  :defer t
+  :diminish
+  :config (yas-reload-all)
+  :hook ((prog-mode . yas-minor-mode)
+	 (text-mode . yas-minor-mode)))
+
 (use-package yasnippet-snippets)
 
 (use-package rustic
+  :defer t
   :config
-  (setq rustic-lsp-server 'rust-analyzer)
-  (setq lsp-eldoc-hook nil)
-  (setq lsp-enable-symbol-highlight t)
-  (setq lsp-signature-auto-activate nil)
-
-  ;; comment to disable rustfmt on save
-  (setq rustic-format-on-save t)
-  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
-
+  (setq rustic-lsp-server 'rust-analyzer
+	lsp-eldoc-hook nil
+	lsp-enable-symbol-highlight t
+	lsp-signature-auto-activate nil
+	;; comment to disable rustfmt on save
+	rustic-format-on-save t)
+  :hook (rustic-mode . rk/rustic-mode-hook))
+  
 (defun rk/rustic-mode-hook ()
   ;; so that run C-c C-c C-r works without having to confirm, but don't try to
-  ;; save rust buffers that are not file visiting. Once
-  ;;  has been resolved this should
-  ;; no longer be necessary.
+  ;; save rust buffers that are not file visiting.
   (when buffer-file-name
     (setq-local buffer-save-without-query t)))
 
-;;(use-package projectile)
 (use-package ivy
-  :init (ivy-mode t)
+  :config (ivy-mode t)
   :custom
   (ivy-use-virtual-buffers t)
   (ivy-enable-recursive-minibuffers t)
@@ -119,8 +118,7 @@
 			       ;;company-files
 			       company-keywords
 			       )))
-   :init 
-   (add-hook 'after-init-hook 'global-company-mode))
+  :hook (after-init . global-company-mode))
 
 (use-package company-posframe
   :defer t
@@ -129,9 +127,7 @@
   (company-posframe-mode))
 
 (use-package counsel
-  :defer t
-  :config
-  (counsel-mode))
+  :init (counsel-mode))
 
 (use-package flx
   :defer t
@@ -144,13 +140,13 @@
   (setq ivy-posframe-display-functions-alist
         '((t . ivy-posframe-display)))
   (ivy-posframe-mode))
+
 (use-package flycheck)
 
 (use-package spacemacs-theme
   :defer t)
 (use-package doom-themes
   :defer t)
-
 (use-package modus-themes
   :init
   ;; Add all your customizations prior to loading the themes
@@ -169,9 +165,9 @@
   ;; Reduce the scale factor for icons from 1.2 to 1.1 to fix the text
   ;; on the right edge being cut off when the scrollbar is disabled.
   ;; https://github.com/hlissner/doom-emacs/issues/2967
-  (setq all-the-icons-scale-factor 1.1)
-  (setq doom-modeline-height 1)
-  (setq doom-modeline-icon 'nil))
+  (setq all-the-icons-scale-factor 1.1
+	doom-modeline-height 1
+	doom-modeline-icon 'nil))
 
 (provide 'packages)
 ;;; end of packages
