@@ -27,5 +27,11 @@
 ;; show trailing whitespace
 (setq show-trailing-whitespace t)
 
+;; Cycle forward in buffers with <ctrl>+<tab>, allowing repeats 
+(require 'misc-cmds)
+;;(global-set-key [remap previous-buffer] 'previous-buffer-repeat)
+;;(global-set-key [remap next-buffer]     'next-buffer-repeat)
+(global-set-key (kbd "C-<tab>") #'next-buffer-repeat)
+
 (provide 'behaviour)
 
