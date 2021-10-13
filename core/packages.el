@@ -119,8 +119,9 @@
 (use-package company
   :diminish company-mode
   :bind (:map company-active-map
-	      ("<tab>" . nil)
-	      ("TAB"   . company-complete-selection))
+	      ("<tab>"    . nil)
+	      ("TAB"      . company-complete-selection)
+	      ("<escape>" . company-abort))
   :config (setq
 	   company-idle-delay 0.1
 	   company-minimum-prefix-length 1
