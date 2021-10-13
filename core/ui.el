@@ -25,7 +25,11 @@
 ;; cursor: Use a bar cursor rather than the standard block
 (setq-default cursor-type 'bar)
 
-;; show line numbers at the beginning of each line
+;; Show line numbers at the beginning of each line. Attempt to use
+;; display-line-numbers-mode introduced in Emacs 26.1 and fall back
+;; to nlinum-mode if required.
+;; Note: we make no attempt to ensure that nlinum-mode is installed,
+;;       that is up to the user.
 (if (fboundp 'global-display-line-numbers-mode)
     (global-display-line-numbers-mode)
   (global-nlinum-mode t))
@@ -35,13 +39,12 @@
 
 (when window-system
   ;; Font configuration
-
-  (if (member "Droid Sans Mono" (font-family-list))
-      (set-face-attribute 'default nil :font "Droid Sans Mono" :height 120)
+  (if (member "Fira Code" (font-family-list))
+      (set-face-attribute 'default nil :font "Fira Code" :height 130)
     (set-face-attribute 'default nil :font "monospace" :height 140))
 
-  ;; A hack to vertically centre the text on a line until emacs supports the true centering
-  ;; Patch by Jesse Medeiros started 2019:
+  ;; A hack to vertically centre the text on a line until emacs supports the
+  ;; true centering. Patch by Jesse Medeiros started 2019:
   ;;   https://yhetil.org/emacs-devel/87eeewak2c.fsf@gnus.org/T/#u
   (defun set-bigger-spacing ()
     (setq-local default-text-properties '(line-spacing 0.125 line-height 1.125)))
@@ -49,4 +52,5 @@
   (add-hook 'prog-mode-hook 'set-bigger-spacing))
 
 (provide 'ui)
-;;; end of ui.el
+;;; ui.el ends here
+
