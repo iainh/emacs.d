@@ -42,7 +42,7 @@
 
   ;; A hack to vertically centre the text on a line until emacs supports the true centering
   ;; Patch by Jesse Medeiros started 2019:
-  ;;   https://yhetil.org/emacs-devel/87eeewak2c.fsf@gnus.org/T/#u 
+  ;;   https://yhetil.org/emacs-devel/87eeewak2c.fsf@gnus.org/T/#u
   (defun set-bigger-spacing ()
     (setq-local default-text-properties '(line-spacing 0.125 line-height 1.125)))
   (add-hook 'text-mode-hook 'set-bigger-spacing)
