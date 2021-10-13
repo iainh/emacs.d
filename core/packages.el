@@ -111,9 +111,13 @@
 	      ("<tab>" . nil)
 	      ("TAB"   . company-complete-selection))
   :config (setq
-	   company-idle-delay 0.05
+	   company-idle-delay 0.1
 	   company-minimum-prefix-length 1
 	   company-selection-wrap-around t
+	   company-tooltip-align-annotations t
+	   company-show-quick-access nil
+	   company-tooltip-limit 8
+
 	   ;; backends
 	   company-backends '((
 			       company-capf
