@@ -29,8 +29,10 @@
   :defer t)
 
 (use-package smartparens
+  :defer t
   :diminish smartparens-mode
   :init (smartparens-global-mode)
+  :hook (minibuffer-setup . smartparens-mode)
   :config
   (require 'smartparens-config)
   ;; Enter in parens should create a new empty line that is properly indented
@@ -39,12 +41,13 @@
     (indent-according-to-mode)
     (forward-line -1)
     (indent-according-to-mode))
-
   (sp-local-pair 'prog-mode "{" nil :post-handlers '((indent-between-pair "RET")))
   (sp-local-pair 'prog-mode "[" nil :post-handlers '((indent-between-pair "RET")))
   (sp-local-pair 'prog-mode "(" nil :post-handlers '((indent-between-pair "RET")))
-  :hook (eval-expression-minibuffer-setup . smartparens-mode))
 
+  ;; Bind ";" to sp-comment in elisp
+  (bind-key ";" 'sp-comment emacs-lisp-mode-map)
+)
 (use-package markdown-mode
   :defer t)
 
