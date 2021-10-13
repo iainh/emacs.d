@@ -8,6 +8,9 @@
           (lambda ()
             (setq gc-cons-threshold (expt 2 23))))
 
+;; For LSP, increase the amount of data that Emacs can read from a process.
+;; Some language server responses can be 800k to 3M
+(setq read-process-output-max (* 1024 1024)) ;; 1M
 
 ;; Disable package.el in favour of straight.el
 (setq package-enable-at-startup nil)
@@ -28,3 +31,4 @@
 ;; cursor color is concerned).
 (advice-add #'x-apply-session-resources :override #'ignore)
 
+(provide 'early-init)
