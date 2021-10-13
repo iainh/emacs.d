@@ -24,6 +24,12 @@
 (global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
 (global-set-key [remap kill-whole-line] #'crux-kill-whole-line)
 
+;; Text mode customizations
+(use-package text-mode
+  :straight (:type built-in)
+  :hook (text-mode . turn-on-visual-line-mode)
+)
+
 ;; show trailing whitespace
 (setq show-trailing-whitespace t)
 
