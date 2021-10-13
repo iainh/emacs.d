@@ -20,9 +20,17 @@
 (use-package crux
   :defer t)
 
+(use-package buffer-flip
+  :defer t
+  :bind ("C-<tab>" . buffer-flip)
+  :config
+  (setq buffer-flip-skip-patterns
+        '("^\\*helm\\b"
+          "^\\*swiper\\*$")))
+
 (use-package dired
   :straight (:type built-in)
-  :custom (dired-listing-switches "-aBhl --group-directories-first"))
+  :custom (dired-listing-switches "-aGBhlp --group-directories-first"))
 
 (use-package exec-path-from-shell
   :defer t)
@@ -120,8 +128,6 @@
 	   company-tooltip-align-annotations t
 	   company-show-quick-access nil
 	   company-tooltip-limit 8
-
-	   ;; backends
 	   company-backends '((
 			       company-capf
 			       company-semantic
@@ -130,11 +136,12 @@
 			       )))
   :hook (after-init . global-company-mode))
 
-(use-package company-posframe
+(use-package company-box
   :defer t
+  :diminish company-box-mode
   :after company
-  :config
-  (company-posframe-mode))
+  :hook
+  (company-mode . company-box-mode))
 
 (use-package counsel
   :init (counsel-mode))
@@ -164,9 +171,13 @@
   ;; Load the theme files before enabling a theme
   (modus-themes-load-themes)
   ;;(load-theme 'modus-vivendi t)
-  (load-theme 'modus-operandi t)
+  ;;(load-theme 'modus-operandi t)
   ;; Swap between light and dark
   :bind ("<f5>" . modus-themes-toggle))
+
+(use-package acme-theme
+  :config
+  (load-theme 'acme t))
 
 (use-package doom-modeline
   :config (doom-modeline-mode)

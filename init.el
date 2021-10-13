@@ -3,15 +3,8 @@
 (defvar core-dir (expand-file-name "core" root-dir)
   "Local configuration.")
 
-(defvar lisp-dir (expand-file-name "lisp" root-dir)
-  "Local lisp files.")
-
 ;; add directories to Emacs' `load-path`
 (add-to-list 'load-path core-dir)
-(add-to-list 'load-path lisp-dir)
-
-;; load functions form lisp/
-(require 'misc-cmds)
 
 ;; load configuration from core/
 (require 'packages)
