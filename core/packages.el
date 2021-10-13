@@ -17,7 +17,6 @@
 (straight-use-package 'use-package)
 (use-package straight
 	     :custom (straight-use-package-by-default t))
-
 (use-package crux
   :defer t)
 
@@ -105,6 +104,10 @@
   (ivy-enable-recursive-minibuffers t)
   (ivy-re-builders-alist '((t . ivy--regex-plus))))
 
+(use-package company-fuzzy
+  :init (global-company-fuzzy-mode 1)
+  :config (setq company-fuzzy-sorting-backend 'alphabetic))
+
 (use-package company
   :diminish company-mode
   :bind (:map company-active-map
@@ -135,10 +138,6 @@
 
 (use-package counsel
   :init (counsel-mode))
-
-(use-package flx
-  :defer t
-  :after ivy counsel)
 
 (use-package ivy-posframe
   :defer 1
