@@ -141,7 +141,9 @@
         '((t . ivy-posframe-display)))
   (ivy-posframe-mode))
 
-(use-package flycheck)
+(use-package flycheck
+  :defer t
+  :hook (after-init . global-flycheck-mode))
 
 (use-package spacemacs-theme
   :defer t)
