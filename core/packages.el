@@ -22,7 +22,11 @@
 
 (use-package buffer-flip
   :defer t
-  :bind ("C-<tab>" . buffer-flip)
+  :bind (("C-<tab>" . buffer-flip)
+	 :map buffer-flip-map
+          ( "C-<tab>" .   buffer-flip-forward) 
+          ( "C-S-<tab>" . buffer-flip-backward) 
+          ( "C-ESC" .     buffer-flip-abort))
   :config
   (setq buffer-flip-skip-patterns
         '("^\\*helm\\b"
@@ -100,8 +104,8 @@
   :hook (rustic-mode . rk/rustic-mode-hook))
   
 (defun rk/rustic-mode-hook ()
-  ;; so that run C-c C-c C-r works without having to confirm, but don't try to
-  ;; save rust buffers that are not file visiting.
+  "So that run C-c C-c C-r works without having to confirm, but don't try to
+  save rust buffers that are not file visiting."
   (when buffer-file-name
     (setq-local buffer-save-without-query t)))
 
@@ -161,8 +165,12 @@
 
 (use-package spacemacs-theme
   :defer t)
+
 (use-package doom-themes
-  :defer t)
+  :defer t
+  ;;:config (load-theme 'doom-Iosvkem t)
+  )
+
 (use-package modus-themes
   :init
   ;; Add all your customizations prior to loading the themes
