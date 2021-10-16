@@ -44,6 +44,8 @@
   :diminish smartparens-mode
   :init (smartparens-global-mode)
   :hook (minibuffer-setup . smartparens-mode)
+  :bind (:map emacs-lisp-mode-map
+	      (";" . sp-comment))
   :config
   (require 'smartparens-config)
   ;; Enter in parens should create a new empty line that is properly indented
@@ -54,28 +56,29 @@
     (indent-according-to-mode))
   (sp-local-pair 'prog-mode "{" nil :post-handlers '((indent-between-pair "RET")))
   (sp-local-pair 'prog-mode "[" nil :post-handlers '((indent-between-pair "RET")))
-  (sp-local-pair 'prog-mode "(" nil :post-handlers '((indent-between-pair "RET")))
+  (sp-local-pair 'prog-mode "(" nil :post-handlers '((indent-between-pair "RET"))))
 
-  ;; Bind ";" to sp-comment in elisp
-  (bind-key ";" 'sp-comment emacs-lisp-mode-map)
-)
 (use-package markdown-mode
-  :defer t)
+  :defer t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 
 ;; Show diff highlight in the gutter
-;; (use-package diff-hl
-;;   :defer 1
-;;   :hook
-;;   (dired-mode . diff-hl-dired-mode-unless-remote)
-;;   :config
-;;   (global-diff-hl-mode 1))
+(use-package diff-hl
+  :defer 1
+  :hook
+  (dired-mode . diff-hl-dired-mode-unless-remote)
+  :config
+  (global-diff-hl-mode 1))
 
 (use-package magit
-  :config
-  (global-set-key (kbd "C-x g") 'magit-status))
-  ;; :hook
-  ;; (magit-pre-refresh . diff-hl-magit-pre-refresh)
-  ;; (magit-post-refresh . diff-hl-magit-post-refresh))
+  :bind ("C-x g" . magit-status)
+  :hook
+  (magit-pre-refresh . diff-hl-magit-pre-refresh)
+  (magit-post-refresh . diff-hl-magit-post-refresh))
 
 (use-package which-key
   :diminish
@@ -168,7 +171,7 @@
 
 (use-package doom-themes
   :defer t
-  ;;:config (load-theme 'doom-Iosvkem t)
+  ;; :config (load-theme 'doom-Iosvkem t)
   )
 
 (use-package modus-themes

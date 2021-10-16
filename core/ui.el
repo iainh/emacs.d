@@ -22,8 +22,8 @@
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
 
-;; cursor: Use a bar cursor rather than the standard block
-(setq-default cursor-type 'bar)
+;; cursor
+(setq-default cursor-type 'box)
 
 ;; Show line numbers at the beginning of each line. Attempt to use
 ;; display-line-numbers-mode introduced in Emacs 26.1 and fall back
@@ -39,8 +39,8 @@
 
 (when window-system
   ;; Font configuration
-  (if (member "Fira Code" (font-family-list))
-      (set-face-attribute 'default nil :font "Fira Code" :height 130)
+  (if (member "Hack" (font-family-list))
+      (set-face-attribute 'default nil :font "Hack" :weight 'light :height 170)
     (set-face-attribute 'default nil :font "monospace" :height 140))
 
   ;; A hack to vertically centre the text on a line until emacs supports the

@@ -5,5 +5,3 @@
 !custom.el
 !core/
 !core/*.el
-!lisp/
-!lisp/*.el
