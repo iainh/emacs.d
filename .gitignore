@@ -5,3 +5,5 @@
 !custom.el
 !core/
 !core/*.el
+!snippets/
+!snippets/**
