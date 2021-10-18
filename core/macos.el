@@ -5,12 +5,15 @@
 (exec-path-from-shell-initialize)
 
 (when window-system
+  ;; Enable menubar on macOS
+  (menu-bar-mode +1)
+
   ;; macOS specific UI configuration
   (use-package ns-auto-titlebar
     :init (ns-auto-titlebar-mode))
+
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
   (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
-
 
 ;; macOS ls doesn't support '-X' or arguments like '--sort' so use coreutils ls
 ;; from macPorts
