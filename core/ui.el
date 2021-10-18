@@ -15,14 +15,13 @@
 (column-number-mode t)
 (size-indication-mode t)
 
-;; more useful frame title, that show either a file or a
-;; buffer name (if the buffer isn't visiting a file)
+;; More useful frame title, that show either a file or a buffer name
 (setq frame-title-format
       '("" "Emacs " emacs-version " " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
 
-;; cursor
+;; Cursor configuration
 (setq-default cursor-type 'box)
 
 ;; Show line numbers at the beginning of each line. Attempt to use
@@ -38,9 +37,10 @@
 (global-hl-line-mode +1)
 
 (when window-system
-  ;; Font configuration
-  (if (member "Hack" (font-family-list))
-      (set-face-attribute 'default nil :font "Hack" :weight 'light :height 170)
+  ;; Font configuration. Check for the presence of 'Source Code Pro' before setting it.
+  ;; If it is not present, use 'monospace'.
+  (if (member "Source Code Pro" (font-family-list))
+      (set-face-attribute 'default nil :font "Source Code Pro" :weight 'normal :height 150)
     (set-face-attribute 'default nil :font "monospace" :height 140))
 
   ;; A hack to vertically centre the text on a line until emacs supports the
@@ -53,4 +53,3 @@
 
 (provide 'ui)
 ;;; ui.el ends here
-
