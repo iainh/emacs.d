@@ -17,6 +17,8 @@
 (straight-use-package 'use-package)
 (use-package straight
 	     :custom (straight-use-package-by-default t))
+
+;; -- Packages --
 (use-package crux
   :defer t)
 
@@ -85,15 +87,15 @@
   :config (which-key-mode))
 
 (use-package lsp-mode
-  :defer t)
+  :defer t
+  :config (setq lsp-headerline-breadcrumb-enable nil))
+
 (use-package yasnippet
   :defer t
   :diminish
   :config (yas-reload-all)
   :hook ((prog-mode . yas-minor-mode)
 	 (text-mode . yas-minor-mode)))
-
-(use-package yasnippet-snippets)
 
 (use-package rustic
   :defer t
@@ -112,19 +114,8 @@
   (when buffer-file-name
     (setq-local buffer-save-without-query t)))
 
-(use-package ivy
-  :config (ivy-mode t)
-  :custom
-  (ivy-use-virtual-buffers t)
-  (ivy-enable-recursive-minibuffers t)
-  (ivy-re-builders-alist '((t . ivy--regex-plus))))
-
-(use-package company-fuzzy
-  :init (global-company-fuzzy-mode 1)
-  :config (setq company-fuzzy-sorting-backend 'alphabetic))
-
 (use-package company
-  :diminish company-mode
+  :diminish company
   :bind (:map company-active-map
 	      ("<tab>"    . nil)
 	      ("TAB"      . company-complete-selection)
@@ -141,6 +132,7 @@
 			       company-semantic
 			       ;;company-files
 			       company-keywords
+			       company-yasnippet
 			       )))
   :hook (after-init . global-company-mode))
 
@@ -151,16 +143,29 @@
   :hook
   (company-mode . company-box-mode))
 
-(use-package counsel
-  :init (counsel-mode))
+(use-package selectrum
+  :init (selectrum-mode +1))
 
-(use-package ivy-posframe
-  :defer 1
-  :after ivy
-  :config
-  (setq ivy-posframe-display-functions-alist
-        '((t . ivy-posframe-display)))
-  (ivy-posframe-mode))
+(use-package prescient
+  :config (prescient-persist-mode +1))
+
+(use-package selectrum-prescient
+  :after selectrum
+  :init (selectrum-prescient-mode +1))
+
+;; Enable richer annotations using the Marginalia package
+(use-package marginalia
+  ;; Either bind `marginalia-cycle` globally or only in the minibuffer
+  :bind (("M-A" . marginalia-cycle)
+         :map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  ;; The :init configuration is always executed (Not lazy!)
+  :init
+
+  ;; Must be in the :init section of use-package such that the mode gets
+  ;; enabled right away. Note that this forces loading the package.
+  (marginalia-mode))
 
 (use-package flycheck
   :defer t
@@ -170,9 +175,7 @@
   :defer t)
 
 (use-package doom-themes
-  :defer t
-  ;; :config (load-theme 'doom-Iosvkem t)
-  )
+  :defer t)
 
 (use-package modus-themes
   :init
@@ -188,16 +191,16 @@
   :bind ("<f5>" . modus-themes-toggle))
 
 (use-package acme-theme
-  :config
-  (load-theme 'acme t))
+  :defer t
+  :init (load-theme 'acme t))
 
 (use-package doom-modeline
   :config (doom-modeline-mode)
   ;; Reduce the scale factor for icons from 1.2 to 1.1 to fix the text
   ;; on the right edge being cut off when the scrollbar is disabled.
   ;; https://github.com/hlissner/doom-emacs/issues/2967
-  (setq all-the-icons-scale-factor 1.1
-	doom-modeline-height 1
+  (setq all-the-icons-scale-factor 1.0
+	;;doom-modeline-height -1
 	doom-modeline-icon 'nil))
 
 (provide 'packages)
