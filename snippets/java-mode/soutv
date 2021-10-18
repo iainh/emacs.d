@@ -2,5 +2,5 @@
 # name: println with value
 # key: soutv
 # --
-System.out.println("${1:$(yas-text)} = ", ${1:enumerate});
+System.out.println("${1:$(yas-text)} = " + ${1:enumerate});
 $0
