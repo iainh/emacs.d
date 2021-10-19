@@ -143,6 +143,10 @@
   :hook
   (company-mode . company-box-mode))
 
+(use-package hotfuzz
+  :after selectrum
+  :init (hotfuzz-selectrum-mode +1))
+
 (use-package selectrum
   :init (selectrum-mode +1))
 
