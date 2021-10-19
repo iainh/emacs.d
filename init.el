@@ -6,6 +6,9 @@
 ;; add directories to Emacs' `load-path`
 (add-to-list 'load-path core-dir)
 
+;; Improves performance for some unicode fonts
+(setq inhibit-compacting-font-caches t)
+
 ;; load configuration from core/
 (require 'packages)
 (require 'ui)
