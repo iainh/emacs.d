@@ -199,8 +199,8 @@
   ;; Reduce the scale factor for icons from 1.2 to 1.1 to fix the text
   ;; on the right edge being cut off when the scrollbar is disabled.
   ;; https://github.com/hlissner/doom-emacs/issues/2967
-  (setq all-the-icons-scale-factor 1.0
-	;;doom-modeline-height -1
+  (setq all-the-icons-scale-factor 1.1
+	doom-modeline-height -1
 	doom-modeline-icon 'nil))
 
 (provide 'packages)
