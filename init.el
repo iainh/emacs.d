@@ -18,6 +18,10 @@
 (when (eq system-type 'darwin)
   (require 'macos))
 
+;; BSD specific settings
+(when (eq system-type 'berkley-unix)
+  (require 'bsd))
+
 ;; linux specific settings
 (when (eq system-type 'gnu/linux)
   (require 'linux))
