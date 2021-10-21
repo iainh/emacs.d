@@ -14,6 +14,15 @@
 ;; Use ibuffer over the default.
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; Allow killing the current buffer without confirmation. Generally
+;; this is the behaviour that I expect so being prompted is a nuisance.
+(defun ih/kill-this-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (kill-buffer (current-buffer)))
+
+(global-set-key (kbd "C-x k") 'ih/kill-this-buffer)
+
 ;; store all backup and autosave files in the tmp directory
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
