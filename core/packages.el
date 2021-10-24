@@ -88,7 +88,21 @@
 
 (use-package lsp-mode
   :defer t
-  :config (setq lsp-headerline-breadcrumb-enable nil))
+  :config (setq lsp-headerline-breadcrumb-icons-enable nil
+	lsp-eldoc-hook nil
+	lsp-enable-symbol-highlight t
+	lsp-signature-auto-activate nil
+	lsp-rust-analyzer-cargo-watch-enable t
+        lsp-rust-analyzer-cargo-watch-command "clippy"
+        lsp-rust-analyzer-proc-macro-enable t
+        lsp-rust-analyzer-cargo-load-out-dirs-from-check t
+        lsp-rust-analyzer-display-chaining-hints t
+        lsp-rust-analyzer-display-parameter-hints t
+	lsp-rust-analyzer-server-display-inlay-hints t)
+  :hook ((lsp-after-open . (lambda ()
+			     (when (lsp-find-workspace 'rust-analyzer nil)
+			       (lsp-rust-analyzer-inlay-hints-mode)))))
+  )
 
 (use-package yasnippet
   :defer t
@@ -101,13 +115,10 @@
   :defer t
   :config
   (setq rustic-lsp-server 'rust-analyzer
-	lsp-eldoc-hook nil
-	lsp-enable-symbol-highlight t
-	lsp-signature-auto-activate nil
 	;; comment to disable rustfmt on save
 	rustic-format-on-save t)
   :hook (rustic-mode . rk/rustic-mode-hook))
-  
+	 
 (defun rk/rustic-mode-hook ()
   "So that run C-c C-c C-r works without having to confirm, but don't try to
   save rust buffers that are not file visiting."
@@ -171,12 +182,13 @@
   ;; enabled right away. Note that this forces loading the package.
   (marginalia-mode))
 
-(use-package flycheck
-  :defer t
-  :hook (after-init . global-flycheck-mode))
+;; (use-package flycheck
+;;   :defer t
+;;   :hook (after-init . global-flycheck-mode))
 
 (use-package spacemacs-theme
-  :defer t)
+  :defer t
+  :init (load-theme 'spacemacs-light t))
 
 (use-package doom-themes
   :defer t)
@@ -196,7 +208,8 @@
 
 (use-package acme-theme
   :defer t
-  :init (load-theme 'acme t))
+  ;:init (load-theme 'acme t)
+  )
 
 (use-package doom-modeline
   :config (doom-modeline-mode)
