@@ -39,8 +39,8 @@
 (when window-system
   ;; Font configuration. Check for the presence of 'Source Code Pro' before setting it.
   ;; If it is not present, use 'monospace'.
-  (if (member "Source Code Pro" (font-family-list))
-      (set-face-attribute 'default nil :font "Source Code Pro" :weight 'normal :height 150)
+  (if (member "Hack" (font-family-list))
+      (set-face-attribute 'default nil :font "Hack" :weight 'normal :height 160)
     (set-face-attribute 'default nil :font "monospace" :height 140))
 
   ;; A hack to vertically centre the text on a line until emacs supports the
