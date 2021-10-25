@@ -87,22 +87,26 @@
   :config (which-key-mode))
 
 (use-package lsp-mode
+  :straight (lsp-mode :host github :repo "emacs-lsp/lsp-mode"
+		      :fork (:host github
+				   :repo "iainh/lsp-mode"
+				   :branch "master"))
   :defer t
   :config (setq lsp-headerline-breadcrumb-icons-enable nil
-	lsp-eldoc-hook nil
-	lsp-enable-symbol-highlight t
-	lsp-signature-auto-activate nil
-	lsp-rust-analyzer-cargo-watch-enable t
-        lsp-rust-analyzer-cargo-watch-command "clippy"
-        lsp-rust-analyzer-proc-macro-enable t
-        lsp-rust-analyzer-cargo-load-out-dirs-from-check t
-        lsp-rust-analyzer-display-chaining-hints t
-        lsp-rust-analyzer-display-parameter-hints t
-	lsp-rust-analyzer-server-display-inlay-hints t)
+		lsp-headerline-arrow "›"
+		lsp-eldoc-hook nil
+		lsp-enable-symbol-highlight t
+		lsp-signature-auto-activate nil
+		lsp-rust-analyzer-cargo-watch-enable t
+		lsp-rust-analyzer-cargo-watch-command "clippy"
+		lsp-rust-analyzer-proc-macro-enable t
+		lsp-rust-analyzer-cargo-load-out-dirs-from-check t
+		lsp-rust-analyzer-display-chaining-hints t
+		lsp-rust-analyzer-display-parameter-hints t
+		lsp-rust-analyzer-server-display-inlay-hints t)
   :hook ((lsp-after-open . (lambda ()
 			     (when (lsp-find-workspace 'rust-analyzer nil)
-			       (lsp-rust-analyzer-inlay-hints-mode)))))
-  )
+			       (lsp-rust-analyzer-inlay-hints-mode))))))
 
 (use-package yasnippet
   :defer t
