@@ -191,8 +191,7 @@
   :hook (after-init . global-flycheck-mode))
 
 (use-package spacemacs-theme
-  :defer t
-  :init (load-theme 'spacemacs-light t))
+  :defer t)
 
 (use-package doom-themes
   :defer t)

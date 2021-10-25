@@ -51,5 +51,8 @@
   (add-hook 'text-mode-hook 'set-bigger-spacing)
   (add-hook 'prog-mode-hook 'set-bigger-spacing))
 
+(if window-system (load-theme 'spacemacs-light t)
+  (load-theme 'doom-one t))
+
 (provide 'ui)
 ;;; ui.el ends here
