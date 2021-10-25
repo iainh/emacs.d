@@ -186,9 +186,9 @@
   ;; enabled right away. Note that this forces loading the package.
   (marginalia-mode))
 
-;; (use-package flycheck
-;;   :defer t
-;;   :hook (after-init . global-flycheck-mode))
+(use-package flycheck
+  :defer t
+  :hook (after-init . global-flycheck-mode))
 
 (use-package spacemacs-theme
   :defer t
