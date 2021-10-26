@@ -14,6 +14,10 @@
 ;; Use ibuffer over the default.
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; Enable the built-in Windmove keys. Use meta rather than shift since at
+;; times muscle memory still has be changing the selection with <shift>-<arrow>
+(windmove-default-keybindings 'meta)
+
 ;; Allow killing the current buffer without confirmation. Generally
 ;; this is the behaviour that I expect so being prompted is a nuisance.
 (defun ih/kill-this-buffer ()
@@ -39,8 +43,7 @@
 ;; Text mode customizations
 (use-package text-mode
   :straight (:type built-in)
-  :hook (text-mode . turn-on-visual-line-mode)
-)
+  :hook (text-mode . turn-on-visual-line-mode))
 
 ;; show trailing whitespace
 (setq show-trailing-whitespace t)
