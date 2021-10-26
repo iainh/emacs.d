@@ -97,6 +97,8 @@
 		lsp-eldoc-hook nil
 		lsp-enable-symbol-highlight t
 		lsp-signature-auto-activate nil
+		lsp-log-io nil
+		lsp-completion-provider :capf
 		lsp-rust-analyzer-cargo-watch-enable t
 		lsp-rust-analyzer-cargo-watch-command "clippy"
 		lsp-rust-analyzer-proc-macro-enable t
