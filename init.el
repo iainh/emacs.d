@@ -19,7 +19,7 @@
   (require 'macos))
 
 ;; BSD specific settings
-(when (eq system-type 'berkley-unix)
+(when (eq system-type 'berkeley-unix)
   (require 'bsd))
 
 ;; linux specific settings
