@@ -15,11 +15,18 @@
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
   (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
 
-;; macOS ls doesn't support '-X' or arguments like '--sort' so use coreutils ls
-;; from macPorts
-(when (equal system-type 'darwin)
-  (setq dired-use-ls-dired t
-	insert-directory-program "/opt/local/bin/gls"))
+(defun ih/apply-theme (appearance)
+  "Load theme, taking current system APPEARANCE into consideration."
+  (mapc #'disable-theme custom-enabled-themes)
+  (pcase appearance
+    ('light (load-theme 'modus-operandi t))
+    ('dark (load-theme 'modus-vivendi t))))
+
+(add-hook 'ns-system-appearance-change-functions #'ih/apply-theme)
+
+;; BSD ls doesn't support '--group-directories-first' from the general
+;; configuration so override the switches to exclude it.
+(setq dired-listing-switches "-aGBhlp")
 
 (provide 'macos)
 ;;; end of macos.el
