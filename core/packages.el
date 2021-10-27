@@ -6,9 +6,9 @@
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
+	(url-retrieve-synchronously
+	 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	 'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -26,17 +26,42 @@
   :defer t
   :bind (("C-<tab>" . buffer-flip)
 	 :map buffer-flip-map
-          ( "C-<tab>" .   buffer-flip-forward)
-          ( "C-S-<tab>" . buffer-flip-backward)
-          ( "C-ESC" .     buffer-flip-abort))
+	  ( "C-<tab>" .   buffer-flip-forward)
+	  ( "C-S-<tab>" . buffer-flip-backward)
+	  ( "C-ESC" .     buffer-flip-abort))
   :config (setq
 	   buffer-flip-skip-patterns
-           '("^\\*helm\\b"
-             "^\\*swiper\\*$")))
+	   '("^\\*helm\\b"
+	     "^\\*swiper\\*$")))
 
 (use-package dired
   :straight (:type built-in)
   :custom (dired-listing-switches "-aGBhlp --group-directories-first"))
+
+;; (use-package dired-sidebar
+;;   :defer t
+;;   :bind ("<f8>" . dired-sidebar-toggle-with-current-directory))
+
+;; NeoTree can be opened (toggled) at projectile project root
+(defun neotree-project-dir ()
+    "Open NeoTree using the git root."
+    (interactive)
+    (let ((project-dir (projectile-project-root))
+	  (file-name (buffer-file-name)))
+      (neotree-toggle)
+      (if project-dir
+	  (if (neo-global--window-exists-p)
+	      (progn
+		(neotree-dir project-dir)
+		(neotree-find file-name)))
+	(message "Could not find git project root."))))
+
+(use-package neotree
+  :defer t
+  :bind ("<f8>" . neotree-project-dir)
+  :config (setq neo-theme 'nerd))
+
+(use-package projectile)
 
 (use-package exec-path-from-shell
   :defer t)
@@ -120,7 +145,7 @@
 	   rustic-lsp-server 'rust-analyzer
 	   rustic-format-on-save t)
   :hook (rustic-mode . rk/rustic-mode-hook))
-	 
+
 (defun rk/rustic-mode-hook ()
   "So that run C-c C-c C-r works without having to confirm, but don't try to
 save rust buffers that are not file visiting."
@@ -172,8 +197,8 @@ save rust buffers that are not file visiting."
 ;; Enable richer annotations using the Marginalia package
 (use-package marginalia
   :bind (("M-A" . marginalia-cycle)
-         :map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
+	 :map minibuffer-local-map
+	 ("M-A" . marginalia-cycle))
   :init (marginalia-mode))
 
 (use-package flycheck
@@ -200,8 +225,11 @@ save rust buffers that are not file visiting."
   :init
   ;; Add all your customizations prior to loading the themes
   (setq modus-themes-italic-constructs t
-	modus-themes-bold-constructs nil)
- 
+	modus-themes-bold-constructs nil
+	modus-themes-subtle-line-numbers t
+	modus-themes-fringes 'sublte
+	modus-themes-paren-match '(intense))
+
   ;; Load the theme files before enabling a theme
   (modus-themes-load-themes)
   ;; Swap between light and dark
