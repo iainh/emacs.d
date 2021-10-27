@@ -31,10 +31,21 @@
 	 (prog-mode . hl-line-mode)))
 
 (when window-system
-  ;; Font configuration. Check for the presence of 'Source Code Pro' before setting it.
-  ;; If it is not present, use 'monospace'.
+  ;; Theme setting. Attempt to do the right thing when a window is not present
+  ;; and sent a dark theme to fit it with my dark terminal sessions.
+  (if window-system (load-theme 'modus-operandi t)
+    (load-theme 'modus-vivendi t))
+
+  ;; Font customization. If 'Fira Code' is available, use it and setup all
+  ;; customizations for the variants. If not available, use 'monospace'
   (if (member "Fira Code" (font-family-list))
-      (set-face-attribute 'default nil :font "Fira Code" :weight 'normal :height 160)
+      (progn
+	(custom-set-faces
+	 '(default ((t (:height 130 :family "Fira Code"))))
+	 ;; Use a less bold variant of Fira Code
+	 '(bold ((t (:family "Fira Code SemiBold"))))
+	 '(mode-line ((t (:height 110))))
+	 '(mode-line-inactive ((t (:height 110))))))
     (set-face-attribute 'default nil :font "monospace" :height 140))
 
   ;; A hack to vertically centre the text on a line until emacs supports the
@@ -44,11 +55,6 @@
     (setq-local default-text-properties '(line-spacing 0.125 line-height 1.125)))
   (add-hook 'text-mode-hook 'set-bigger-spacing)
   (add-hook 'prog-mode-hook 'set-bigger-spacing))
-
-;; Theme setting. Attempt to do the right thing when a window is not present
-;; and sent a dark theme to fit it with my dark terminal sessions.
-(if window-system (load-theme 'modus-operandi t)
-  (load-theme 'modus-vivendi t))
 
 (provide 'ui)
 ;;; ui.el ends here

@@ -226,6 +226,7 @@ save rust buffers that are not file visiting."
   :defer t)
 
 (use-package modus-themes
+  :defer t
   :init
   ;; Add all your customizations prior to loading the themes
   (setq modus-themes-italic-constructs t
@@ -238,8 +239,8 @@ save rust buffers that are not file visiting."
 	modus-themes-vivendi-color-overrides
 	'((bg-main . "#1d2021")))
 
-  ;; Load the theme files before enabling a theme
-  (modus-themes-load-themes)
+  ;; (disabled) Load the theme files before enabling a theme
+  ;; (modus-themes-load-themes)
   ;; Swap between light and dark
   :bind ("<f5>" . modus-themes-toggle))
 
