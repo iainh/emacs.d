@@ -12,9 +12,16 @@
 ;; when there are arm binaries available or we can automate the build.
 (use-package tree-sitter
   :init (global-tree-sitter-mode +1)
-  :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+  :hook (((rustic-mode
+	   python-mode
+	   css-mode) . tree-sitter-mode)
+	 ((rustic-mode
+	   python-mode
+	   css-mode) . tree-sitter-hl-mode))
+  )
 
 (use-package tree-sitter-langs
   :after tree-sitter)
 
 (provide 'windows)
+;;; windows.el ends here
