@@ -38,9 +38,9 @@
 
 (when window-system
   ;; Font configuration. Check for the presence of 'Source Code Pro' before setting it.
-  ;; If it is not present, use 'monospace'.
-  (if (member "Hack" (font-family-list))
-      (set-face-attribute 'default nil :font "Hack" :weight 'normal :height 160)
+  ;; If it is not present, use 'monospace'.  
+  (if (member "Hasklig" (font-family-list))
+      (set-face-attribute 'default nil :font "hasklig" :weight 'normal :height 130)
     (set-face-attribute 'default nil :font "monospace" :height 140))
 
   ;; A hack to vertically centre the text on a line until emacs supports the
@@ -51,6 +51,8 @@
   (add-hook 'text-mode-hook 'set-bigger-spacing)
   (add-hook 'prog-mode-hook 'set-bigger-spacing))
 
+;; Theme setting. Attempt to do the right thing when a window is not present
+;; and sent a dark theme to fit it with my dark terminal sessions.
 (if window-system (load-theme 'spacemacs-light t)
   (load-theme 'doom-one t))
 

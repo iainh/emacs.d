@@ -5,3 +5,4 @@
 (setq dired-listing-switches "-aGBhlp")
 
 (provide 'bsd)
+;;; bsd.el ends here
