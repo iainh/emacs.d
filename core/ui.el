@@ -24,23 +24,19 @@
 ;; Cursor configuration
 (setq-default cursor-type 'box)
 
-;; Show line numbers at the beginning of each line. Attempt to use
-;; display-line-numbers-mode introduced in Emacs 26.1 and fall back
-;; to nlinum-mode if required.
-;; Note: we make no attempt to ensure that nlinum-mode is installed,
-;;       that is up to the user.
-(if (fboundp 'global-display-line-numbers-mode)
-    (global-display-line-numbers-mode)
-  (global-nlinum-mode t))
+;; Show line numbers at the beginning of each line in prog-mode only.
+(use-package prog-mode
+  :straight (:type built-in)
+  :hook (prog-mode . display-line-numbers-mode))
 
 ;; highlight the current line
 (global-hl-line-mode +1)
 
 (when window-system
   ;; Font configuration. Check for the presence of 'Source Code Pro' before setting it.
-  ;; If it is not present, use 'monospace'.  
-  (if (member "Hasklig" (font-family-list))
-      (set-face-attribute 'default nil :font "hasklig" :weight 'normal :height 130)
+  ;; If it is not present, use 'monospace'.
+  (if (member "Fira Code" (font-family-list))
+      (set-face-attribute 'default nil :font "Fira Code" :weight 'normal :height 160)
     (set-face-attribute 'default nil :font "monospace" :height 140))
 
   ;; A hack to vertically centre the text on a line until emacs supports the
