@@ -233,7 +233,8 @@ save rust buffers that are not file visiting."
 	modus-themes-subtle-line-numbers t
 	modus-themes-fringes 'sublte
 	modus-themes-paren-match '(intense)
-	modus-themes-syntax '(faint green-strings yellow-comments alt-syntax)
+	modus-themes-syntax '(green-strings yellow-comments alt-syntax)
+	modus-themes-completions 'opinionated
 	modus-themes-vivendi-color-overrides
 	'((bg-main . "#1d2021")))
 
