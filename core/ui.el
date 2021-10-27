@@ -27,10 +27,8 @@
 ;; Show line numbers at the beginning of each line in prog-mode only.
 (use-package prog-mode
   :straight (:type built-in)
-  :hook (prog-mode . display-line-numbers-mode))
-
-;; highlight the current line
-(global-hl-line-mode +1)
+  :hook ((prog-mode . display-line-numbers-mode)
+	 (prog-mode . hl-line-mode)))
 
 (when window-system
   ;; Font configuration. Check for the presence of 'Source Code Pro' before setting it.
@@ -49,8 +47,8 @@
 
 ;; Theme setting. Attempt to do the right thing when a window is not present
 ;; and sent a dark theme to fit it with my dark terminal sessions.
-(if window-system (load-theme 'spacemacs-light t)
-  (load-theme 'doom-one t))
+(if window-system (load-theme 'modus-operandi t)
+  (load-theme 'modus-vivendi t))
 
 (provide 'ui)
 ;;; ui.el ends here
