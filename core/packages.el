@@ -38,10 +38,6 @@
   :straight (:type built-in)
   :custom (dired-listing-switches "-aGBhlp --group-directories-first"))
 
-;; (use-package dired-sidebar
-;;   :defer t
-;;   :bind ("<f8>" . dired-sidebar-toggle-with-current-directory))
-
 ;; NeoTree can be opened (toggled) at projectile project root
 (defun neotree-project-dir ()
     "Open NeoTree using the git root."
@@ -180,19 +176,14 @@ save rust buffers that are not file visiting."
   :after company
   :hook (company-mode . company-box-mode))
 
-(use-package hotfuzz
-  :after selectrum
-  :init (hotfuzz-selectrum-mode +1))
+(use-package vertico
+  :init (vertico-mode))
 
-(use-package selectrum
-  :init (selectrum-mode +1))
-
-(use-package prescient
-  :config (prescient-persist-mode +1))
-
-(use-package selectrum-prescient
-  :after selectrum
-  :init (selectrum-prescient-mode +1))
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
 ;; Enable richer annotations using the Marginalia package
 (use-package marginalia
@@ -232,12 +223,13 @@ save rust buffers that are not file visiting."
   (setq modus-themes-italic-constructs t
 	modus-themes-bold-constructs nil
 	modus-themes-subtle-line-numbers t
+	modus-themes-hl-line '(accented)
 	modus-themes-fringes 'sublte
 	modus-themes-paren-match '(intense)
 	modus-themes-syntax '(green-strings yellow-comments alt-syntax)
 	modus-themes-completions 'opinionated
 	modus-themes-vivendi-color-overrides
-	'((bg-main . "#1d2021")))
+	'((bg-main . "#181a1b")))
 
   ;; (disabled) Load the theme files before enabling a theme
   ;; (modus-themes-load-themes)
