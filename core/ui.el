@@ -22,7 +22,7 @@
                                           "%b"))))
 
 ;; Cursor configuration
-(setq-default cursor-type 'box)
+(setq-default cursor-type '(bar . 3))
 
 ;; Show line numbers at the beginning of each line in prog-mode only.
 (use-package prog-mode
