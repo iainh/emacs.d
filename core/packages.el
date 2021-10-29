@@ -104,6 +104,10 @@
   :diminish
   :config (which-key-mode))
 
+(use-package restclient
+  :defer t
+  :mode ("\\.http\\'" . restclient-mode))
+
 (use-package lsp-mode
   :straight (lsp-mode :host github :repo "emacs-lsp/lsp-mode"
 		      :fork (:host github
