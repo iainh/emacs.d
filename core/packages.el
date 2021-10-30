@@ -197,10 +197,6 @@ save rust buffers that are not file visiting."
   :defer t
   :hook (after-init . global-flycheck-mode))
 
-(use-package highlight-parentheses
-  :defer t
-  :hook (prog-mode . highlight-parentheses-mode))
-
 (use-package doom-modeline
   :config (doom-modeline-mode)
   ;; Reduce the scale factor for icons from 1.2 to 1.1 to fix the text
