@@ -4,7 +4,14 @@
 (require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
 
-(when window-system
+(setq mac-command-modifier 'super
+      ns-command-modifier  'super
+      mac-option-modifier  'meta
+      ns-option-modifier   'meta
+      mac-right-option-modifier 'meta
+      ns-right-option-modifier  'meta)
+
+(when (display-graphic-p)
   ;; Enable menubar on macOS
   (menu-bar-mode +1)
 

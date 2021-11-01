@@ -29,3 +29,5 @@
 ;; Windows specific settings
 (when (eq system-type 'windows-nt)
   (require 'windows))
+
+(provide 'init)

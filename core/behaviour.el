@@ -9,7 +9,7 @@
   (set-frame-size (selected-frame) 91 43))
 
 ;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+;;(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; Use ibuffer over the default.
 (global-set-key (kbd "C-x C-b") 'ibuffer)

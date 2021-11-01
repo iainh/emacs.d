@@ -198,6 +198,7 @@ save rust buffers that are not file visiting."
   :init (vertico-mode))
 
 (use-package orderless
+  :after vertico
   :init
   (setq completion-styles '(orderless)
         completion-category-defaults nil
@@ -244,7 +245,7 @@ save rust buffers that are not file visiting."
 	modus-themes-hl-line '(accented)
 	modus-themes-fringes 'sublte
 	modus-themes-paren-match '(intense)
-	modus-themes-syntax '(green-strings yellow-comments alt-syntax)
+	modus-themes-syntax '(green-strings alt-syntax)
 	modus-themes-completions 'opinionated
 	modus-themes-vivendi-color-overrides
 	'((bg-main . "#202122")))
