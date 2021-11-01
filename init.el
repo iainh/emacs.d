@@ -1,4 +1,4 @@
-(defvar root-dir (file-name-directory load-file-name)
+(defvar root-dir (file-name-directory (or load-file-name byte-compile-current-file))
   "The root directory.")
 (defvar core-dir (expand-file-name "core" root-dir)
   "Local configuration.")
