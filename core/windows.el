@@ -11,7 +11,6 @@
 ;; packages here. In the future will move to the common packages.el
 ;; when there are arm binaries available or we can automate the build.
 (use-package tree-sitter
-  :init (global-tree-sitter-mode +1)
   :hook (((rustic-mode
 	   python-mode
 	   css-mode) . tree-sitter-mode)
