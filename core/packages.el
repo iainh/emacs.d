@@ -1,5 +1,6 @@
 ;; Install packages using straight.el
 
+(setq straight-check-for-modifications nil)
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -19,6 +20,10 @@
 	     :custom (straight-use-package-by-default t))
 
 ;; -- Packages --
+
+(use-package esup
+  :defer t)
+
 (use-package crux
   :defer t)
 
@@ -55,9 +60,17 @@
 (use-package neotree
   :defer t
   :bind ("<f8>" . neotree-project-dir)
-  :config (setq neo-theme 'nerd))
+  :config (setq neo-theme 'ascii))
 
-(use-package projectile)
+(use-package recentf
+  :defer t
+  :init (recentf-mode 1))
+
+(use-package projectile
+  :defer t
+  :config (setq
+	   projectile-indexing-method 'alien
+	   projectile-sort-order 'recentf))
 
 (use-package exec-path-from-shell
   :defer t)
@@ -65,8 +78,8 @@
 (use-package smartparens
   :defer t
   :diminish smartparens-mode
-  :init (smartparens-global-mode)
-  :hook (minibuffer-setup . smartparens-mode)
+  :hook ((minibuffer-setup . smartparens-mode)
+	 (prog-mode . smartparens-mode))
   :bind (:map emacs-lisp-mode-map
 	      (";" . sp-comment))
   :config (require 'smartparens-config)
@@ -90,9 +103,9 @@
 
 ;; Show diff highlight in the gutter
 (use-package diff-hl
-  :defer 1
-  :hook (dired-mode . diff-hl-dired-mode-unless-remote)
-  :config (global-diff-hl-mode 1))
+  :defer t
+  :hook ((dired-mode . diff-hl-dired-mode-unless-remote)
+	 (prog-mode . diff-hl-mode)))
 
 (use-package magit
   :bind ("C-x g" . magit-status)
@@ -101,6 +114,7 @@
   (magit-post-refresh . diff-hl-magit-post-refresh))
 
 (use-package which-key
+  :defer t
   :diminish
   :config (which-key-mode))
 
@@ -136,8 +150,8 @@
   :defer t
   :diminish
   :config (yas-reload-all)
-  :hook ((prog-mode . yas-minor-mode)
-	 (text-mode . yas-minor-mode)))
+  :hook ((rustic-mode . yas-minor-mode)
+	 (java-mode . yas-minor-mode)))
 
 (use-package rustic
   :defer t
@@ -172,7 +186,7 @@ save rust buffers that are not file visiting."
 			       company-keywords
 			       company-yasnippet
 			       )))
-  :hook (after-init . global-company-mode))
+  :hook (prog-mode . company-mode))
 
 (use-package company-box
   :defer t
@@ -204,14 +218,14 @@ save rust buffers that are not file visiting."
   :defer t
   :hook (prog-mode . highlight-parentheses-mode))
 
-(use-package doom-modeline
-  :config (doom-modeline-mode)
-  ;; Reduce the scale factor for icons from 1.2 to 1.1 to fix the text
-  ;; on the right edge being cut off when the scrollbar is disabled.
-  ;; https://github.com/hlissner/doom-emacs/issues/2967
-  (setq all-the-icons-scale-factor 1.1
-	doom-modeline-height -1
-	doom-modeline-icon 'nil))
+;; (use-package doom-modeline
+;;   :config (doom-modeline-mode)
+;;   ;; Reduce the scale factor for icons from 1.2 to 1.1 to fix the text
+;;   ;; on the right edge being cut off when the scrollbar is disabled.
+;;   ;; https://github.com/hlissner/doom-emacs/issues/2967
+;;   (setq all-the-icons-scale-factor 1.1
+;; 	doom-modeline-height -1
+;; 	doom-modeline-icon 'nil))
 
 ;; Themes
 (use-package acme-theme
@@ -233,7 +247,7 @@ save rust buffers that are not file visiting."
 	modus-themes-syntax '(green-strings yellow-comments alt-syntax)
 	modus-themes-completions 'opinionated
 	modus-themes-vivendi-color-overrides
-	'((bg-main . "#181a1b")))
+	'((bg-main . "#202122")))
 
   ;; (disabled) Load the theme files before enabling a theme
   ;; (modus-themes-load-themes)
