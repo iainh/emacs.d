@@ -1,6 +1,4 @@
-(defvar root-dir (file-name-directory (or load-file-name byte-compile-current-file))
-  "The root directory.")
-(defvar core-dir (expand-file-name "core" root-dir)
+(defvar core-dir (expand-file-name "core" user-emacs-directory)
   "Local configuration.")
 
 ;; add directories to Emacs' `load-path`

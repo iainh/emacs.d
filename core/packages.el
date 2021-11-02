@@ -1,6 +1,11 @@
 ;; Install packages using straight.el
 
-(setq straight-check-for-modifications nil)
+(setq straight-check-for-modifications nil
+      straight-use-package-by-default t
+      straight-cache-autoloads t
+      straight-vc-git-default-clone-depth 1
+      vc-follow-symlinks t)
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -16,10 +21,10 @@
 
 ;; Install use-package and configure to always use straight.el
 (straight-use-package 'use-package)
-(use-package straight
-	     :custom (straight-use-package-by-default t))
 
 ;; -- Packages --
+
+(use-package delight)
 
 (use-package esup
   :defer t)
@@ -63,14 +68,16 @@
   :config (setq neo-theme 'ascii))
 
 (use-package recentf
-  :defer t
+  :defer 2
   :init (recentf-mode 1))
 
 (use-package projectile
-  :defer t
+  :defer 5
   :config (setq
 	   projectile-indexing-method 'alien
-	   projectile-sort-order 'recentf))
+	   projectile-sort-order 'recentf)
+  :delight '(:eval (concat " " (projectile-project-name)))
+  :init (projectile-mode t))
 
 (use-package exec-path-from-shell
   :defer t)
@@ -107,15 +114,16 @@
   :hook ((dired-mode . diff-hl-dired-mode-unless-remote)
 	 (prog-mode . diff-hl-mode)))
 
-(use-package magit
-  :bind ("C-x g" . magit-status)
-  :hook
-  (magit-pre-refresh . diff-hl-magit-pre-refresh)
-  (magit-post-refresh . diff-hl-magit-post-refresh))
+;; (use-package magit
+;;   :defer t
+;;   :bind ("C-x g" . magit-status)
+;;   :hook
+;;   (magit-pre-refresh . diff-hl-magit-pre-refresh)
+;;   (magit-post-refresh . diff-hl-magit-post-refresh))
 
 (use-package which-key
   :defer t
-  :diminish
+  :delight
   :config (which-key-mode))
 
 (use-package restclient
@@ -167,13 +175,14 @@ save rust buffers that are not file visiting."
     (setq-local buffer-save-without-query t)))
 
 (use-package company
-  :diminish company
+  :defer 1
+  :delight
   :bind (:map company-active-map
 	      ("<tab>"    . nil)
 	      ("TAB"      . company-complete-selection)
 	      ("<escape>" . company-abort))
   :config (setq
-	   company-idle-delay 0.5
+	   company-idle-delay 0.1
 	   company-minimum-prefix-length 1
 	   company-selection-wrap-around t
 	   company-tooltip-align-annotations t
@@ -181,8 +190,9 @@ save rust buffers that are not file visiting."
 	   company-tooltip-limit 8
 	   company-backends '((
 			       company-capf
+			       company-dabbrev-code
 			       company-semantic
-			       ;;company-files
+			       company-files
 			       company-keywords
 			       company-yasnippet
 			       )))
@@ -190,7 +200,7 @@ save rust buffers that are not file visiting."
 
 (use-package company-box
   :defer t
-  :diminish company-box-mode
+  :delight
   :after company
   :hook (company-mode . company-box-mode))
 
@@ -219,14 +229,10 @@ save rust buffers that are not file visiting."
   :defer t
   :hook (prog-mode . highlight-parentheses-mode))
 
-;; (use-package doom-modeline
-;;   :config (doom-modeline-mode)
-;;   ;; Reduce the scale factor for icons from 1.2 to 1.1 to fix the text
-;;   ;; on the right edge being cut off when the scrollbar is disabled.
-;;   ;; https://github.com/hlissner/doom-emacs/issues/2967
-;;   (setq all-the-icons-scale-factor 1.1
-;; 	doom-modeline-height -1
-;; 	doom-modeline-icon 'nil))
+(use-package emacs
+  :delight
+  (auto-fill-function " AF")
+  (visual-line-mode))
 
 ;; Themes
 (use-package acme-theme
