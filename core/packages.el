@@ -114,6 +114,17 @@
   :hook ((dired-mode . diff-hl-dired-mode-unless-remote)
 	 (prog-mode . diff-hl-mode)))
 
+(use-package hl-todo
+  :defer t
+  :delight
+  :config
+  ;; e.g. TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+  (setq hl-todo-keyword-faces `(("TODO" font-lock-warning-face bold)
+                                ("FIXME" error bold)
+                                ("HACK" font-lock-keyword-face bold)
+                                ("XXX" font-lock-doc-face bold)))
+  :hook (prog-mode . hl-todo-mode))
+
 ;; (use-package magit
 ;;   :defer t
 ;;   :bind ("C-x g" . magit-status)
