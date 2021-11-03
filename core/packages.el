@@ -125,6 +125,14 @@
                                 ("XXX" font-lock-doc-face bold)))
   :hook (prog-mode . hl-todo-mode))
 
+(use-package lin
+  :straight (lin :host gitlab :repo "protesilaos/lin")
+  :config (set-face-attribute 'lin-hl nil
+			      ;; :background (modus-themes-color 'green-subtle-bg)
+			      ;;:underline (modus-themes-color 'green-intense)
+			      )
+  :hook (prog-mode . lin-mode))
+
 ;; (use-package magit
 ;;   :defer t
 ;;   :bind ("C-x g" . magit-status)
@@ -257,13 +265,15 @@ save rust buffers that are not file visiting."
   :init
   ;; Add all your customizations prior to loading the themes
   (setq modus-themes-italic-constructs t
-	modus-themes-bold-constructs nil
-	modus-themes-subtle-line-numbers t
-	modus-themes-hl-line '(accented)
-	modus-themes-fringes 'sublte
+	;; modus-themes-bold-constructs nil
+	;; modus-themes-subtle-line-numbers t
+	;; modus-themes-hl-line '(accented)
+	;; modus-themes-fringes 'sublte
+	;; modus-themes-mode-line t
+	modus-themes-mode-line '(borderless)
 	modus-themes-paren-match '(intense)
-	modus-themes-syntax '(green-strings alt-syntax)
-	modus-themes-completions 'opinionated
+	;; modus-themes-syntax '(green-strings alt-syntax)
+;;	modus-themes-completions 'opinionated
 	modus-themes-vivendi-color-overrides
 	'((bg-main . "#202122")))
 
