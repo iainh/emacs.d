@@ -195,6 +195,8 @@ save rust buffers that are not file visiting."
   (when buffer-file-name
     (setq-local buffer-save-without-query t)))
 
+(use-package yaml-mode)
+
 (use-package company
   :defer 1
   :delight
