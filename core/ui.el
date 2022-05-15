@@ -29,7 +29,7 @@
   (if (member "IBM Plex Mono" (font-family-list))
       (progn
 	(custom-set-faces
-	 '(default ((t (:height 130 :family "IBM Plex Mono"))))
+	 '(default ((t (:height 175 :family "SomeType Mono"))))
 	 ;; Use a less bold variant of Fira Code (disabled due to issue on macos)
 	 ;; '(bold ((t (:family "Fira Code SemiBold"))))
 	 '(mode-line ((t (:height 110))))
@@ -38,53 +38,18 @@
 
   ;; semibold is the new bold
   (set-face-attribute 'bold nil :weight 'semibold)
-  
-  ;; A hack to vertically centre the text on a line until emacs supports the
-  ;; true centering. Patch by Jesse Medeiros started 2019:
-  ;;   https://yhetil.org/emacs-devel/87eeewak2c.fsf@gnus.org/T/#u
-  (defun set-bigger-spacing ()
-    (setq-local default-text-properties '(line-spacing 0.125 line-height 1.125)))
 
-  (use-package text-mode
-    :straight (:type built-in)
-    :hook (text-mode . set-bigger-spacing))
-  
+  ;; Line spacing
+  (setq-default line-spacing-vertical-center 1)
+  (setq-default line-spacing 0.2)
+
   (use-package prog-mode
     :straight (:type built-in)
     :hook(;; Show line numbers at the beginning of each line
 	  (prog-mode . display-line-numbers-mode)
 	  ;; Hightlight the current line
-	  (prog-mode . hl-line-mode)
-	  (prog-mode . set-bigger-spacing)
-	  ))
+	  (prog-mode . hl-line-mode)))
  
-  ;; Ligatures
-  (let ((alist '((?! . "\\(?:!\\(?:==\\|[!=]\\)\\)")
-		 (?# . "\\(?:#\\(?:###?\\|_(\\|[!#(:=?[_{]\\)\\)")
-		 (?$ . "\\(?:\\$>\\)")
-		 (?& . "\\(?:&&&?\\)")
-		 (?* . "\\(?:\\*\\(?:\\*\\*\\|[/>]\\)\\)")
-		 (?+ . "\\(?:\\+\\(?:\\+\\+\\|[+>]\\)\\)")
-		 (?- . "\\(?:-\\(?:-[>-]\\|<<\\|>>\\|[<>|~-]\\)\\)")
-		 (?. . "\\(?:\\.\\(?:\\.[.<]\\|[.=?-]\\)\\)")
-		 (?/ . "\\(?:/\\(?:\\*\\*\\|//\\|==\\|[*/=>]\\)\\)")
-		 (?: . "\\(?::\\(?:::\\|\\?>\\|[:<-?]\\)\\)")
-		 (?\; . "\\(?:;;\\)")
-		 (?< . "\\(?:<\\(?:!--\\|\\$>\\|\\*>\\|\\+>\\|-[<>|]\\|/>\\|<[<=-]\\|=\\(?:=>\\|[<=>|]\\)\\||\\(?:||::=\\|[>|]\\)\\|~[>~]\\|[$*+/:<=>|~-]\\)\\)")
-		 (?= . "\\(?:=\\(?:!=\\|/=\\|:=\\|=[=>]\\|>>\\|[=>]\\)\\)")
-		 (?> . "\\(?:>\\(?:=>\\|>[=>-]\\|[]:=-]\\)\\)")
-		 (?? . "\\(?:\\?[.:=?]\\)")
-		 (?\[ . "\\(?:\\[\\(?:||]\\|[<|]\\)\\)")
-		 (?\ . "\\(?:\\\\/?\\)")
-		 (?\] . "\\(?:]#\\)")
-		 (?^ . "\\(?:\\^=\\)")
-		 (?_ . "\\(?:_\\(?:|?_\\)\\)")
-		 (?{ . "\\(?:{|\\)")
-		 (?| . "\\(?:|\\(?:->\\|=>\\||\\(?:|>\\|[=>-]\\)\\|[]=>|}-]\\)\\)")
-		 (?~ . "\\(?:~\\(?:~>\\|[=>@~-]\\)\\)"))))
-    (dolist (char-regexp alist)
-      (set-char-table-range composition-function-table (car char-regexp)
-                            `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
   ;; End of graphics only block
   )
