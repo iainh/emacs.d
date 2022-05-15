@@ -125,14 +125,6 @@
                                 ("XXX" font-lock-doc-face bold)))
   :hook (prog-mode . hl-todo-mode))
 
-(use-package lin
-  :straight (lin :host gitlab :repo "protesilaos/lin")
-  :config (set-face-attribute 'lin-hl nil
-			      ;; :background (modus-themes-color 'green-subtle-bg)
-			      ;;:underline (modus-themes-color 'green-intense)
-			      )
-  :hook (prog-mode . lin-mode))
-
 ;; (use-package magit
 ;;   :defer t
 ;;   :bind ("C-x g" . magit-status)
@@ -172,8 +164,6 @@
   :hook ((lsp-after-open . (lambda ()
 			     (when (lsp-find-workspace 'rust-analyzer nil)
 			       (lsp-rust-analyzer-inlay-hints-mode))))))
-;; TODO: This should go into windows.el once we know that it works.
-(setq rustic-analyzer-command '("C:\\Users\\iain.heggie\\AppData\\Roaming\\Code\\User\\globalStorage\\matklad.rust-analyzer\\rust-analyzer-x86_64-pc-windows-msvc.exe"))
 
 (use-package yasnippet
   :defer t
@@ -276,7 +266,6 @@ save rust buffers that are not file visiting."
 	modus-themes-mode-line '(borderless)
 	modus-themes-paren-match '(intense)
 	;; modus-themes-syntax '(green-strings alt-syntax)
-	modus-themes-completions 'opinionated
 	modus-themes-vivendi-color-overrides
 	'((bg-main . "#202122")))
 
